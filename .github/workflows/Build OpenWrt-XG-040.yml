@@ -93,7 +93,10 @@ jobs:
         prefix: ${{ github.workspace }}/openwrt
 
     - name: Load custom feeds
-      run: # 调试信息：打印当前工作目录和文件列表
+      run: 
+    - name: Load custom feeds
+      run: |
+        # 调试信息：打印当前工作目录和文件列表
         echo "===== DEBUG INFO ====="
         echo "Current working directory: $(pwd)"
         echo "FEEDS_CONF value: $FEEDS_CONF"
@@ -101,32 +104,31 @@ jobs:
         ls -la
         echo "======================"
 
-    # 检查feeds.conf.default是否存在
-      if [ -f "$FEEDS_CONF" ]; then
-        echo "✅ Found $FEEDS_CONF file"
-      # 确保openwrt目录存在（避免mv失败）
-        mkdir -p openwrt
-      # 移动文件到openwrt目录
-        mv "$FEEDS_CONF" openwrt/feeds.conf.default
-        echo "✅ Moved $FEEDS_CONF to openwrt/feeds.conf.default"
-      # 验证移动结果
-       if [ -f "openwrt/feeds.conf.default" ]; then
-         echo "✅ Verify: openwrt/feeds.conf.default exists"
-       else
-         echo "❌ Error: Failed to move $FEEDS_CONF"
-         exit 1
-      fi
-    else
-      echo "❌ Error: $FEEDS_CONF not found in current directory!"
-      exit 1
-    fi
+        # 检查feeds.conf.default是否存在
+        if [ -f "$FEEDS_CONF" ]; then
+          echo "✅ Found $FEEDS_CONF file"
+          # 确保openwrt目录存在（避免mv失败）
+          mkdir -p openwrt
+          # 移动文件到openwrt目录
+          mv "$FEEDS_CONF" openwrt/feeds.conf.default
+          echo "✅ Moved $FEEDS_CONF to openwrt/feeds.conf.default"
+          # 验证移动结果
+          if [ -f "openwrt/feeds.conf.default" ]; then
+            echo "✅ Verify: openwrt/feeds.conf.default exists"
+          else
+            echo "❌ Error: Failed to move $FEEDS_CONF"
+            exit 1
+          fi
+        else
+          echo "❌ Error: $FEEDS_CONF not found in current directory!"
+          exit 1
+        fi
 
-    # 执行diy-part1.sh脚本
-    chmod +x $DIY_P1_SH
-    cd openwrt
-    echo "✅ Running diy-part1.sh from: $(pwd)"
-    $GITHUB_WORKSPACE/$DIY_P1_SH
-
+        # 执行diy-part1.sh脚本
+        chmod +x $DIY_P1_SH
+        cd openwrt
+        echo "✅ Running diy-part1.sh from: $(pwd)"
+        $GITHUB_WORKSPACE/$DIY_P1_SH
     
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
