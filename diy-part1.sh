@@ -11,4 +11,10 @@
 #
 # Uncomment a feed source
 # sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
+src-git packages https://github.com/openwrt/packages.git;main
+src-git luci https://github.com/openwrt/luci.git;main
+src-git routing https://github.com/openwrt/routing.git;main
+src-git telephony https://github.com/openwrt/telephony.git;main
 
+# iStore 源
+src-git istore https://github.com/linkease/istore;main
