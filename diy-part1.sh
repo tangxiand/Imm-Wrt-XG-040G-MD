@@ -9,8 +9,10 @@
 # File name: diy-part1.sh
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 #
+
 # Uncomment a feed source
 # sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
-# 复制自定义 feeds.conf.default 到源码目录
-[ -f ../feeds.conf.default ] && cp ../feeds.conf.default feeds.conf.default
+# 移除重复的feeds.conf.default复制命令（该操作已在Load custom feeds步骤完成）
+# 保留空脚本结构，避免执行报错
+echo "✅ diy-part1.sh 执行完成（无重复操作）"
