@@ -55,8 +55,8 @@ jobs:
       uses: klever1988/cachewrtbuild@main
       with:
         ccache: 'true'
-        mixkey: 'openwrt-xg040gmd-2305'  # 匹配OpenWrt分支
-        prefix:${{ github.workspace }}/openwrt
+        mixkey: 'openwrt-xg040gmd-master'  # 匹配OpenWrt分支
+        prefix: ${{ github.workspace }}/openwrt
 
     - name: Load custom feeds
       run: |
