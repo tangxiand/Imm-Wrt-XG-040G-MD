@@ -5,4 +5,4 @@ src-git routing https://github.com/openwrt/routing.git;openwrt-25.12
 src-git telephony https://github.com/openwrt/telephony.git;openwrt-25.12
 
 # iStore 应用商店源（必需，否则找不到 istore 包）
-# src-git istore https://github.com/linkease/istore;main
+src-git istore https://github.com/linkease/istore;main
