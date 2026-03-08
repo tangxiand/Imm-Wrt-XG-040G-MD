@@ -85,6 +85,11 @@ jobs:
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         tar zxvf $GITHUB_WORKSPACE/XG-040G-MD.tar.gz -C /workdir/openwrt
 
+# 移除补丁后，可能会丢失对特定 NAND Flash 芯片（如 SkyHigh S35ML 系列）的支持或性能优化，但可以让编译继续进行。
+    - name: Remove broken patch
+      run: |
+        rm -f /workdir/openwrt/target/linux/airoha/patches-6.12/992-mtd-spinand-add-skyhigh-robust-read-workaround.patch
+        
     - name: Enable build ccache
       uses: klever1988/cachewrtbuild@main
       with:
