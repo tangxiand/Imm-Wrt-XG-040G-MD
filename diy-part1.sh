@@ -13,6 +13,13 @@
 # Uncomment a feed source
 # sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
+# 关键：检查并确保feeds.conf.default中iStore源存在（避免重复添加）
+if ! grep -q "istore" feeds.conf.default; then
+    echo "src-git istore https://github.com/linkease/istore;main" >> feeds.conf.default
+fi
+# 强制更新feeds索引（确保拉取最新的软件包）
+./scripts/feeds update -a
+
 # 移除重复的feeds.conf.default复制命令（该操作已在Load custom feeds步骤完成）
 # 保留空脚本结构，避免执行报错
 echo "✅ diy-part1.sh 执行完成（无重复操作）"
